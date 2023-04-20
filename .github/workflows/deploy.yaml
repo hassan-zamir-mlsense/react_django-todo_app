@@ -36,7 +36,7 @@ jobs:
       uses: actions/setup-node@v2
     - name: Building FrontEnd
       run: |
-            cd front-todo
+            cd react_todo_app
             npm dedupe
             npm install --force
             CI= npm run build
