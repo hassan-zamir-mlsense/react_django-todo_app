@@ -3,9 +3,9 @@ name: Deploy to GAE
 # Controls when the workflow will run
 on:
   push:
-    branches: [ react_django-todo_app ]
+    branches: [ master ]
   pull_request:
-    branches: [ react_django-todo_app ]
+    branches: [ master ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
