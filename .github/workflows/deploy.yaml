@@ -37,7 +37,6 @@ jobs:
     - name: Building FrontEnd
       run: |
             cd react_todo_app
-            npm install
             npm dedupe
             npm install --force
             npm run build
