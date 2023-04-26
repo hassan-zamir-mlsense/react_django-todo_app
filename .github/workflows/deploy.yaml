@@ -39,7 +39,7 @@ jobs:
             cd react_todo_app
             npm dedupe
             npm install --force
-            CI= npm run build
+            npm run build
             cd ..
       
     ##### CREATE RUNTIME ENV FILE FOR DEPLOYMENT, AND ADD SERVICE-ACCOUNT-KEY.json IF NEEDED
