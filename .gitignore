@@ -11,3 +11,7 @@
 # production
 react_todo_app/build/
 react_todo_app/node_modules/
+.idea/
+__pycache__/
+.env
+
