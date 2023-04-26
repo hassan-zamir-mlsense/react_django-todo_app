@@ -3,9 +3,9 @@ name: Deploy to GAE
 # Controls when the workflow will run
 on:
   push:
-    branches: [ master ]
+    branches: [ django1 ]
   pull_request:
-    branches: [ master ]
+    branches: [ django1 ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -37,7 +37,7 @@ jobs:
     - name: Building FrontEnd
       run: |
             cd react_todo_app1
-            npm dedupe
+            npm dedupe --force
             npm install --force
             npm run build
             cd ..

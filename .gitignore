@@ -9,8 +9,8 @@
 /coverage
 
 # production
-react_todo_app/build/
-react_todo_app/node_modules/
+react_todo_app1/build/
+react_todo_app1/node_modules/
 .idea/
 __pycache__/
 .env
