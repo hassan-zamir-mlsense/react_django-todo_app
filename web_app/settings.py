@@ -2,6 +2,7 @@ from pathlib import Path
 import os
 from datetime import timedelta
 from dotenv import load_dotenv
+
 load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -70,7 +71,7 @@ ROOT_URLCONF = 'web_app.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'react_todo_app', 'build')],
+        'DIRS': [os.path.join(BASE_DIR, 'react_todo_app1', 'build')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -98,14 +99,13 @@ DATABASES = {
         'HOST': '127.0.0.1',
         # 'HOST': 'cloud-work-314310:us-central1:training-week',
         # 'HOST': 'cloudsql/cloud-work-314310:us-central1:training-week',
-        'PORT': os.getenv('DB_PORT_HASSAN',None),
-        'USER':os.getenv('DB_USER_HASSAN',None),
-        'PASSWORD': os.getenv('DB_PWD_HASSAN',None),
-        'NAME': os.getenv('DB_NAME_HASSAN',None),
+        'PORT': os.getenv('DB_PORT_HASSAN', None),
+        'USER': os.getenv('DB_USER_HASSAN', None),
+        'PASSWORD': os.getenv('DB_PWD_HASSAN', None),
+        'NAME': os.getenv('DB_NAME_HASSAN', None),
     }
 }
 
-print()
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -139,7 +139,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-react_static_dir = os.path.join(BASE_DIR, 'react_todo_app', 'build', 'static')
+react_static_dir = os.path.join(BASE_DIR, 'react_todo_app1', 'build', 'static')
 
 STATIC_URL = '/static/'
 # STATIC_URL = react_static_dir
