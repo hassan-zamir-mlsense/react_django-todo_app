@@ -1,0 +1,16 @@
+#heading{
+    font-family: "tahoma";
+}
+
+#signup-page-create-button{
+    font-size: 15px;
+    margin-top: 20px;
+    text-transform: none;
+    /*margin: 8px;*/
+}
+
+#signup-page-login-button{
+    marginLeft:"auto";
+    text-transform: none;
+    margin-top: 0px;
+}
