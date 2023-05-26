@@ -1,0 +1,56 @@
+name: Build and Deploy to Cloud Run
+
+on:
+  push:
+    branches: [main]
+
+env:
+  DB_NAME: ${{ secrets.DB_NAME_HASSAN }}
+  DB_USER: ${{ secrets.DB_USER_HASSAN }}
+  DB_PWD: ${{ secrets.DB_PWD_HASSAN }}
+  DB_HOST: ${{ secrets.DB_HOST_HASSAN }}
+  DJANGO_SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY_HASSAN }}
+
+  SERVICE_NAME: ${{secrets.SERVICE_ACCOUNT_HASSAN }}
+  PROJECT_ID: ${{secrets.PROJECT_ID_HASSAN}}
+  
+jobs:
+  setup-build-deploy:
+    name: Setup, Build, and Deploy
+    runs-on: ubuntu-latest
+    steps:
+      ##### CREATE RUNTIME ENV FILE FOR DEPLOYMENT, AND ADD SERVICE-ACCOUNT-KEY.json IF NEEDED
+      - name: Creating Runtime .env and add service-account-key
+        run: |
+          touch .env
+          echo  DB_NAME_HASSAN="${{ secrets.DB_NAME_HASSAN }}" >> .env
+          echo  DB_USER_HASSAN="${{ secrets.DB_USER_HASSAN }}" >> .env
+          echo  DB_PWD_HASSAN="${{ secrets.DB_PWD_HASSAN }}" >> .env
+          echo  DJANGO_SECRET_KEY_HASSAN="${{ secrets.DJANGO_SECRET_KEY_HASSAN }}" >> .env
+          echo  DB_HOST_HASSAN="${{ secrets.DB_HOST_HASSAN }}" >> .env
+
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      # - name: Setup Python
+      #   uses: actions/setup-python@v2
+      #   with:
+      #     python-version: 3.10
+      # Setup gcloud CLI
+      - name: Connect to gcloud
+        uses: google-github-actions/setup-gcloud@v0
+        with:
+          service_account_key: ${{ secrets.SERVICE_ACCOUNT_HASSAN }}
+          project_id: ${{ secrets.PROJECT_ID_HASSAN }}
+
+
+# BUILDING THE DOCKER
+      - name: Build and push Docker image
+        run: |
+          gcloud auth configure-docker
+          docker build -t gcr.io/${{ secrets.PROJECT_ID_HASSAN }}/${{ env.SERVICE_ACCOUNT_HASSAN }} .
+          docker push gcr.io/${{ secrets.PROJECT_ID_HASSAN }}/${{ env.SERVICE_ACCOUNT_HASSAN }}
+
+      - name: Deploy to Google Cloud Run
+        run: |
+          gcloud run deploy ${{ env.SERVICE_ACCOUNT_HASSAN }} --image gcr.io/${{ secrets.PROJECT_ID_HASSAN }}/${{ env.SERVICE_ACCOUNT_HASSAN }} --platform managed --region ${{ env.RUN_REGION }} --allow-unauthenticated --port 8080
